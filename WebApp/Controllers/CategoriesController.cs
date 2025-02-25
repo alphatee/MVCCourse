@@ -17,5 +17,12 @@ namespace WebApp.Controllers
 
             return View(category);
         }
+
+        [HttpPost]
+        public IActionResult Edit(Category category)
+        {
+            CategoryRepository.UpdateCategory(category.CategoryId, category);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

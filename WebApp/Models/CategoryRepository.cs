@@ -9,9 +9,20 @@
             new Category { CategoryId = 3, Name = "Meat", Description = "Meat" }
         };
 
-        public static Category GetCategoryById(int id)
+        public static Category? GetCategoryById(int id)
         {
-            return _categories.FirstOrDefault(c => c.CategoryId == id);
+            var category= _categories.FirstOrDefault(c => c.CategoryId == id);
+            if(category != null)
+            {
+                return new Category
+                {
+                    CategoryId = category.CategoryId,
+                    Name = category.Name,
+                    Description = category.Description,
+                };
+            }
+
+            return null;
         }
 
         public static List<Category> GetCategories()
@@ -25,9 +36,11 @@
             _categories.Add(category);
         }
 
-        public static void UpdateCategory(Category category)
+        public static void UpdateCategory(int id, Category category)
         {
-            var existingCategory = GetCategoryById(category.CategoryId);
+            if (id != category.CategoryId) return;
+
+            var existingCategory = _categories.FirstOrDefault(c => c.CategoryId == id);
             if (existingCategory != null)
             {
                 existingCategory.Name = category.Name;
