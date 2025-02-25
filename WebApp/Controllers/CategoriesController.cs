@@ -7,12 +7,14 @@ namespace WebApp.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            var categories = CategoryRepository.GetCategories();
+            return View(categories);
         }
 
         public IActionResult Edit(int? id)
         {
-            var category = new Category { CategoryId = id.HasValue ? id.Value : 0 };
+            var category = CategoryRepository.GetCategoryById(id.HasValue?id.Value:0);
+
             return View(category);
         }
     }
