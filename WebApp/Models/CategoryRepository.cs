@@ -50,7 +50,7 @@
 
         public static void DeleteCategory(int id)
         {
-            var category = GetCategoryById(id);
+            var category = _categories.FirstOrDefault(x => x.CategoryId == id);
             if (category != null)
             {
                 _categories.Remove(category);
