@@ -21,8 +21,13 @@ namespace WebApp.Controllers
         [HttpPost]
         public IActionResult Edit(Category category)
         {
-            CategoryRepository.UpdateCategory(category.CategoryId, category);
-            return RedirectToAction(nameof(Index));
+            if (ModelState.IsValid)
+            {
+                CategoryRepository.UpdateCategory(category.CategoryId, category);
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(category);
         }
     }
 }
