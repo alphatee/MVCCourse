@@ -32,7 +32,20 @@
 
         public static void AddCategory(Category category)
         {
-            category.CategoryId = _categories.Max(c => c.CategoryId) + 1;
+            if (_categories != null && _categories.Count > 0)
+            {
+                category.CategoryId = _categories.Max(c => c.CategoryId) + 1;
+            }
+            else
+            {
+                category.CategoryId = 1;
+            }
+
+            if (_categories == null)
+            {
+                _categories = new List<Category>();
+            }
+
             _categories.Add(category);
         }
 

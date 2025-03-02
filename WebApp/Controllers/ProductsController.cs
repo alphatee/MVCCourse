@@ -14,6 +14,8 @@ namespace WebApp.Controllers
 
         public IActionResult Add()
         {
+            ViewBag.Action = "add";
+
             var productViewModel = new ProductViewModel
             {
                 Categories = CategoryRepository.GetCategories()
@@ -31,12 +33,15 @@ namespace WebApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            ViewBag.Action = "add";
             productViewModel.Categories = CategoryRepository.GetCategories();
             return View(productViewModel);  
         }
 
         public IActionResult Edit(int id)
         {
+            ViewBag.Action = "edit";
+
             var productViewModel = new ProductViewModel
             {
                 Product = ProductsRepository.GetProductById(id)??new Product(),
@@ -55,8 +60,15 @@ namespace WebApp.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            ViewBag.Action = "edit";
             productViewModel.Categories = CategoryRepository.GetCategories();
             return View(productViewModel);
+        }
+
+        public IActionResult Delete(int id)
+        {
+            ProductsRepository.DeleteProduct(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
