@@ -12,9 +12,9 @@
         <tbody>
             @foreach (var product in Model)
             {
-                <tr>
-                    <th>@product.Name</th>
-                    <th>@product.Quantity</th>
+                <tr class ="product-row">
+                    <td>@product.Name</td>
+                    <td>@product.Quantity</td>
                 </tr>
             }
         </tbody>
