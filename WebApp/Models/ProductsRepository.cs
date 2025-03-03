@@ -99,5 +99,18 @@
                 _products.Remove(product);
             }
         }
+
+        public static List<Product> GetProductsByCategoryId(int categoryId)
+        {
+            var products = _products.Where(x => x.CategoryId == categoryId);
+            if(_products != null)
+            {
+                return products.ToList();
+            }
+            else
+            {
+                return new List<Product>();
+            }
+        }
     }
 }
