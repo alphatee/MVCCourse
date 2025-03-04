@@ -33,6 +33,17 @@
             @* Product Details *@
         </div>
         @* Sales form *@
+        <form method="post" asp-controller="sales" asp-action="sell" id="formSale">
+            <input asp-for="SelectedProductId" type="hidden" />
+            <div class="form-group">
+                <label asp-for="QuantityToSell"></label>
+                <input asp-for="QuantityToSell" class="form-control" type="number" min="1" />
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Submit" />
+            </div>
+        </form>
     </div>
     <div class="col">
         @* List of transactions *@
@@ -42,11 +53,15 @@
 @section Scripts{
     <script>
         $(function () {
+            // Initialize the form
+            $("#formSale").hide();
+            $("#QuantityToSell").val("");
             // Handle category selection
             $("#SelectedCategoryId").on("change", function() {
                 $("#productsPartial").load("/products/ProductsByCategoryPartial", { categoryId: $(this).val()});
                 $("#productDetailPartial").html("");
-            })
+                $("#formSale").hide();
+            });
 
             // Handle product selection
             $('#productsPartial').on('click', '.product-row', function() {
@@ -59,6 +74,17 @@
 
                 // Load the details of the product in a partial view 
                 $("#productDetailPartial").load("/sales/SellProductPartial", { productId: productId});
+
+                if (productId > 0 )
+                {
+                    $("#SelectedProductId").val(productId);
+                    $("#formSale").show();
+                }
+                else
+                {
+                    $("#SelectedProductId").val("");
+                    $("#formSale").hide();
+                }
             });
         });
     </script>
