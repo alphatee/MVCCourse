@@ -2,6 +2,13 @@
 {
     public static class CategoryRepository
     {
+        private static List<Category> _categories = new List<Category>
+        {
+            new Category { CategoryId = 1, Name = "Beverage", Description = "Beverage" },
+            new Category { CategoryId = 2, Name = "Bakery", Description = "Bakery" },
+            new Category { CategoryId = 3, Name = "Meat", Description = "Meat" }
+        };
+
         public static Category? GetCategoryById(int id)
         {
             var category= _categories.FirstOrDefault(c => c.CategoryId == id);

@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UseCases.DataStorePluginInterfaces;
+using UseCases.Interfaces;
 
 namespace UseCases.CategoriesUseCases
 {
-    public class ViewCategoriesUseCase
+    public class ViewCategoriesUseCase : IViewCategoriesUseCase
     {
         private readonly ICategoryRepository categoryRepository;
 
@@ -19,7 +20,7 @@ namespace UseCases.CategoriesUseCases
 
         public IEnumerable<Category> Execute()
         {
-            return categoryRepository.GetCategories(); 
+            return categoryRepository.GetCategories();
         }
     }
 }
