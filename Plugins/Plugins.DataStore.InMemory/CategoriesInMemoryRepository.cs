@@ -1,11 +1,22 @@
-﻿namespace WebApp.Models
+﻿using CoreBusiness;
+using UseCases.DataStorePluginInterfaces;
+
+namespace Plugins.DataStore.InMemory
 {
-    public static class CategoryRepository
+    public class CategoriesInMemoryRepository : ICategoryRepository
+
     {
-        public static Category? GetCategoryById(int id)
+        private  List<Category> _categories = new List<Category>
         {
-            var category= _categories.FirstOrDefault(c => c.CategoryId == id);
-            if(category != null)
+            new Category { CategoryId = 1, Name = "Beverage", Description = "Beverage" },
+            new Category { CategoryId = 2, Name = "Bakery", Description = "Bakery" },
+            new Category { CategoryId = 3, Name = "Meat", Description = "Meat" }
+        };
+
+        public  Category? GetCategoryById(int id)
+        {
+            var category = _categories.FirstOrDefault(c => c.CategoryId == id);
+            if (category != null)
             {
                 return new Category
                 {
@@ -18,12 +29,12 @@
             return null;
         }
 
-        public static List<Category> GetCategories()
+        public  IEnumerable<Category> GetCategories()
         {
             return _categories;
         }
 
-        public static void AddCategory(Category category)
+        public  void AddCategory(Category category)
         {
             if (_categories != null && _categories.Count > 0)
             {
@@ -42,7 +53,7 @@
             _categories.Add(category);
         }
 
-        public static void UpdateCategory(int id, Category category)
+        public  void UpdateCategory(int id, Category category)
         {
             if (id != category.CategoryId) return;
 
@@ -54,7 +65,7 @@
             }
         }
 
-        public static void DeleteCategory(int id)
+        public  void DeleteCategory(int id)
         {
             var category = _categories.FirstOrDefault(x => x.CategoryId == id);
             if (category != null)
